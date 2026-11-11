@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import "./App.css";
 
@@ -27,10 +28,7 @@ function App() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            ticket: ticket,
-            orderId: orderId,
-          }),
+          body: JSON.stringify({ ticket, orderId }),
         }
       );
 
@@ -42,9 +40,7 @@ function App() {
 
       setResult(data);
     } catch (err) {
-      setError(
-        "Could not connect to the backend. Please check the server."
-      );
+      setError("Could not connect to the backend. Please check the server.");
     } finally {
       setLoading(false);
     }
@@ -55,13 +51,11 @@ function App() {
       <header className="header">
         <div className="brand">
           <div className="brand-icon">S</div>
-
           <div>
             <h1>Support Triage Desk</h1>
             <p>Customer Support Ticket Routing System</p>
           </div>
         </div>
-
         <div className="status">
           <span className="status-dot"></span>
           System Online
@@ -71,11 +65,9 @@ function App() {
       <main className="main-container">
         <section className="intro">
           <span className="badge">SUPPORT ROUTING</span>
-
           <h2>Route a Customer Ticket</h2>
-
           <p>
-            Enter the customer's issue below and our routing system
+            Enter the customer's issue and our routing system
             will identify the appropriate support team.
           </p>
         </section>
@@ -86,7 +78,6 @@ function App() {
               <h3>Ticket Information</h3>
               <p>Provide the customer's support request.</p>
             </div>
-
             <span className="required">* Required</span>
           </div>
 
@@ -94,7 +85,6 @@ function App() {
             <label htmlFor="ticket">
               Ticket Description <span>*</span>
             </label>
-
             <textarea
               id="ticket"
               placeholder="Example: I was charged twice for my order..."
@@ -105,7 +95,6 @@ function App() {
 
           <div className="form-group">
             <label htmlFor="orderId">Order ID</label>
-
             <input
               id="orderId"
               type="text"
@@ -113,10 +102,9 @@ function App() {
               value={orderId}
               onChange={(e) => setOrderId(e.target.value)}
             />
-
             <small>
               Optional for account-access issues. Billing and delivery
-              tickets may require an Order ID.
+              tickets require an Order ID for direct routing.
             </small>
           </div>
 
@@ -125,8 +113,7 @@ function App() {
             onClick={handleSubmit}
             disabled={loading}
           >
-            {loading ? "Routing Ticket..." : "Route Ticket"}
-            {!loading && <span>→</span>}
+            {loading ? "Routing Ticket..." : "Route Ticket →"}
           </button>
 
           {error && <div className="error-message">{error}</div>}
@@ -134,47 +121,37 @@ function App() {
 
         {result && (
           <section className="result-card">
-            <div className="result-header">
-              <div>
-                <span className="result-badge">ROUTING RESULT</span>
-                <h3>Ticket Successfully Routed</h3>
-              </div>
-
-              <div className="check-icon">✓</div>
-            </div>
+            <span className="result-badge">ROUTING RESULT</span>
+            <h3>Ticket Routing Result</h3>
 
             <div className="result-grid">
               <div className="result-item">
-                <span className="result-label">CATEGORY</span>
+                <span>CATEGORY</span>
                 <strong>{result.category}</strong>
               </div>
-
               <div className="result-item">
-                <span className="result-label">ASSIGNED TEAM</span>
+                <span>ASSIGNED TEAM</span>
                 <strong>{result.team}</strong>
               </div>
             </div>
 
             <div className="explanation">
-              <span className="result-label">EXPLANATION</span>
-
+              <span>EXPLANATION</span>
               <p>{result.explanation}</p>
             </div>
 
             {result.orderId && (
-              <div className="order-result">
-                <span className="result-label">ORDER ID</span>
-                <strong>{result.orderId}</strong>
-              </div>
+              <p className="order-result">
+                <strong>Order ID:</strong> {result.orderId}
+              </p>
             )}
           </section>
         )}
 
         <section className="routing-info">
           <h3>How routing works</h3>
-
           <div className="routing-grid">
-            <div>
+            <div className="routing-item">
               <span className="routing-icon billing">B</span>
               <div>
                 <strong>Billing</strong>
@@ -182,7 +159,7 @@ function App() {
               </div>
             </div>
 
-            <div>
+            <div className="routing-item">
               <span className="routing-icon account">A</span>
               <div>
                 <strong>Account Support</strong>
@@ -190,7 +167,7 @@ function App() {
               </div>
             </div>
 
-            <div>
+            <div className="routing-item">
               <span className="routing-icon delivery">D</span>
               <div>
                 <strong>Fulfillment</strong>
@@ -198,7 +175,7 @@ function App() {
               </div>
             </div>
 
-            <div>
+            <div className="routing-item">
               <span className="routing-icon review">M</span>
               <div>
                 <strong>Manual Review</strong>
@@ -210,7 +187,7 @@ function App() {
       </main>
 
       <footer>
-        <p>Support Triage Desk • Customer Support Routing</p>
+        Support Triage Desk · Customer Support Routing
       </footer>
     </div>
   );
